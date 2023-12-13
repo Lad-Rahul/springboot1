@@ -1,0 +1,17 @@
+application.properties
+
+# it is key value pair, value not needed in double quotes
+app.name=Demo App
+
+
+----------------------------------------------------------
+value annotation
+
+/*
+ * To get value from application.properties
+ * default value can be given so it will fallback to that 
+ * if not found in properties file
+ * Only works with spring manage beans, not with POJO
+ */
+@Value("${app.name:defaultValue}")
+private String appName;
