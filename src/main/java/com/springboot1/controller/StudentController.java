@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 //import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.springboot1.response.StudentResponse;
+
 /*
  * @RestController is  combination of @controller and @ResponseBody annotation
  * @RequestMapping - url of API - (prefix of url) for controller
@@ -25,7 +27,8 @@ public class StudentController {
 	
 	@GetMapping("/get")
 //	@RequestMapping(value="/get", method=RequestMethod.GET)
-	public String getStudent() {
-		return appName;
+	public StudentResponse getStudent() {
+		StudentResponse student = new StudentResponse("1", "Firstname", "LastName");
+		return student;
 	}
 }

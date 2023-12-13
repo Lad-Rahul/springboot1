@@ -1,0 +1,11 @@
+Jackson library: spring use this to convert java object
+Jackson is a high-performance JSON processor used for Java. 
+It is the most popular library used for serializing Java objects or Map to JSON and vice-versa
+
+@JsonIgnore
+Put it over variable name
+It will ignore on response
+
+@JsonProperty
+Put it over variable name
+It will rename key in response
