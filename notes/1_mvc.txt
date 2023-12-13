@@ -1,0 +1,30 @@
+SpringBootApplication1.java
+
+//This java class is entry point of springBoot application
+//It will by default run on embadded tomcat server at port 8080
+
+/* below annotation  combination of 3 different annotation add configuration, 
+   add/enable auto configuration and addComponentScan
+*/
+@SpringBootApplication
+
+/* 
+	for scanning of mvc files on entry point
+*/
+@ComponentScan({ "com.springboot1.controller", "com.springboot1.service"})
+
+
+
+---------------------------------------------------------------------------------------
+
+Controller
+
+/*
+ * @RestController is  combination of @controller and @ResponseBody annotation
+ * @RequestMapping - url of API - (prefix of url) for controller
+ */
+@RestController
+@RequestMapping("api/student")
+
+	@GetMapping("/get")
+	@RequestMapping(value="/get", method=RequestMethod.GET)
