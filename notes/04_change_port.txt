@@ -1,0 +1,13 @@
+Change port for spring boot
+
+1.Application.properties
+ 	add below line
+	server.port=8085
+
+2.Run configuration (has higher preference than application.properties)
+    Spring boot application -> Arguments -> VM arguments
+    add below line
+    -Dserver.port=8086
+    Apply & Run
+
+Note: If we provide port value as 0, it will run on random port every time
