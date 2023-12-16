@@ -1,0 +1,14 @@
+Create JAR file
+
+While creating application we have chosen jar packaging, in pom.xml it has build plugin for that (spring-boot-maven-plugin)
+
+To create jar file,
+
+1. Run -> as maven build
+2. In Goals field add below line
+	clean install
+
+In target folder snapshot file will be created -> fileName.snapshot
+
+To run this jar through In cmd, type below command
+java -jar filename.snapshot
