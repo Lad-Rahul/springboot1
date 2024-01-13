@@ -1,0 +1,21 @@
+JPA Java Persistent API
+
+ORM (Object Relational Mapping) - map java class to table of database
+Fields gets mapped to column in table
+
+Hibernate is one of the implementation of JPA 
+- to create our own implementation 
+- JPA is interface and hibernate is an implementation
+JPA provides some core methods using which you can query your dbms, 
+and if that is not sufficient then go for hibernate or go for your own implementation
+
+JPQL - Java Persistence Query Language
+Similar to SQL
+SQL refers to table and column
+JPQL refers to class and variables
+
+Advantages to ORM or JPA 
+- we are not writing native SQL query, it is based on class and variable. 
+So it is not coupled with db. Have choice to change database in future
+
+each repository is interface not class
