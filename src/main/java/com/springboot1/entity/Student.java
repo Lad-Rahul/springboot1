@@ -1,8 +1,11 @@
 package com.springboot1.entity;
 
+import com.springboot1.request.CreateStudentRequest;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -14,13 +17,15 @@ import jakarta.persistence.Table;
  * @Column Annotation represent column name of table
  * @Id represnt primary key (unique identifier)
  * @GeneratedValue is annotation for auto increment field 
+ * 
+ * strategy needs to provide for auto increament identifier for POST API
  * */
 @Entity
 @Table(name="student")
 public class Student {
-	
+
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
 	private long id;
 	
@@ -46,6 +51,16 @@ public class Student {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+	}
+	
+	/**
+	 * constructor to create student instance from create request payload 
+	 */
+	public Student(CreateStudentRequest createStudentRequest) {
+		super();
+		this.firstName = createStudentRequest.getFirstName();
+		this.lastName = createStudentRequest.getLastName();
+		this.email = createStudentRequest.getEmail();
 	}
 
 	public long getId() {

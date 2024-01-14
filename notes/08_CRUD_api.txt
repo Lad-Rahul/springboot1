@@ -1,0 +1,60 @@
+JPArepository interface will provide findAll, save, findById, deleteById mothods
+to perfrom action in database
+
+for validation need to add validation pack in pom.xml
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-validation</artifactId>
+</dependency>
+
+@Valid annotation is required in controller when getting request body
+@NotNull @NotBlank etc validation can be added in request class
+
+---------------------------------------
+
+GET
+http://localhost:8080/api/student/get-all
+
+---------------------------------------------------------------------
+
+POST
+
+http://localhost:8080/api/student/create
+{
+    "first_name": "Sachin",
+    "lastName": "Dravid",
+  	"email": "sachin@gmail.com"
+}
+
+notes: @Requestbody will convert JSON request payload to modal class
+       it should return data in response class format
+
+----------------------------------------------------------------------
+
+PUT
+
+http://localhost:8080/api/student/update
+{
+	"id": 4,
+	"firstName": "Rohit"
+}
+
+notes: payload must contain id field
+	   based on id field it will identify record in database
+	   and update database with other field provided in payload
+	   in service layer, use orElse method with findById 
+	   otherwise need to make return type <Optional>
+	  
+-----------------------------------------------------------------------
+
+DELETE
+
+http://localhost:8080/api/student/delete?id=4
+http://localhost:8080/api/student/delete/4
+
+notes: two method to get id from api
+	   1. delete using id given in queryParam
+	      @RequestParam("paramKey") is used to get queryParam value
+	   2. delete using id given in path variable
+	      @PathVariable is used to get id from path
+
