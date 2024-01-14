@@ -2,12 +2,13 @@ package com.springboot1.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.springboot1.entity.Student;
 
 public class StudentResponse {
 	
 	//Field is ignored in response
 	@JsonIgnore
-	private String id;
+	private long id;
 	
 	//key gets renamed in response 
 	@JsonProperty("first_name")
@@ -15,11 +16,17 @@ public class StudentResponse {
 
 	private String lastName;
 
-	public StudentResponse(String id, String firstName, String lastName) {
+	public StudentResponse(long id, String firstName, String lastName) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
+	}
+
+	public StudentResponse(Student student) {
+		this.id = student.getId();
+		this.firstName = student.getFirstName();
+		this.lastName = student.getLastName();
 	}
 
 	@Override

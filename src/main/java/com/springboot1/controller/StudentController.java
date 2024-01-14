@@ -1,12 +1,18 @@
 package com.springboot1.controller;
 
+import java.util.List;
+import java.util.ArrayList;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 //import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.springboot1.entity.Student;
 import com.springboot1.response.StudentResponse;
+import com.springboot1.service.StudentService;
 
 /*
  * @RestController is  combination of @controller and @ResponseBody annotation
@@ -25,10 +31,27 @@ public class StudentController {
 	@Value("${app.name:defaultValue}")
 	private String appName;
 	
+	@Autowired
+	StudentService studentService;
+	
 	@GetMapping("/get")
 //	@RequestMapping(value="/get", method=RequestMethod.GET)
 	public StudentResponse getStudent() {
-		StudentResponse student = new StudentResponse("1", "Firstname", "LastName");
+		StudentResponse student = new StudentResponse(1, "Firstname", "LastName");
 		return student;
+	}
+	
+	@GetMapping("/get-all")
+	public List<StudentResponse> getAllStudents() {
+		
+		List<Student> studentList = studentService.getAllStudents();
+		
+		List<StudentResponse> studentResponseList = new ArrayList<StudentResponse>();
+		
+		studentList.stream().forEach(student -> {
+			studentResponseList.add(new StudentResponse(student));
+		});
+		
+		return studentResponseList;
 	}
 }

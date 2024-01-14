@@ -1,0 +1,41 @@
+in application.properties file, add database connection config
+
+in pom.xml file add dependency for sql connect
+<dependency>
+	 <groupId>mysql</groupId>
+	 <artifactId>mysql-connector-java</artifactId>
+	 <version>8.0.25</version>
+</dependency>
+
+create Entity package, Repository package and Service package
+
+Entity
+Entity class should be wrapped with annotation Entity
+For Each table in database, it should have it's own entity file and
+Each entity class will have their own repository file
+default constructor must be present in entity class
+@Column Annotation represent column name of table
+@Id represnt primary key (unique identifier)
+@GeneratedValue is annotation for auto increment field
+
+Repository
+Entity class should be wrapped with annotation Repository
+Repository is an interface
+JpaRepository is combination of CrudRepository and PagingAndSortingRepository
+first param will be entity and second is datatype of unique Indentifier
+Every Entity will have their repository
+
+Service
+it initialize repository instance here
+it will use repository method to make query
+
+Controller
+controller is having Api path and it's logic
+to get data and send in response
+
+
+Main java class (Springboot1Application.java) should invole entity, repository and service packages
+@ComponentScan({ "com.springboot1.controller", "com.springboot1.service"})
+@EntityScan("com.springboot1.entity")
+@EnableJpaRepositories("com.springboot1.repository")
+
