@@ -1,0 +1,20 @@
+Schedular
+
+Add @EnableScheduling annotation in main class
+
+Wrap method in service file with @Scheduled annoatation
+@Scheduled(cron = "0 0/1 * 1/1 * ?")
+
+Cron expression should be of 6 parameters to work in springboot
+
+cron expression can be created using website http://www.cronmaker.com
+
+cron expression format: ( sec min hour day month weak )
+
+examples:
+every minute: 0 0/1 * 1/1 * ?
+every 2 minute: 0 0/2 * 1/1 * ?
+every hour: 0 0 0/1 1/1 * ? *
+every day starts at 15: 0 0 15 1/1 * ? *
+every week on mon and friday at 16: 0 0 16 ? * MON,FRI *
+
