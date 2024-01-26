@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 /* 
  * Entity class represent table in database
@@ -39,6 +40,14 @@ public class Student {
 	private String email;
 	
 	/**
+	 * @Transient annotation is used for variable in class which is not refers to column in table
+	 * It is used when this field should not persist in database
+	 * It's value is calculated based on data available, ex fullName, total, percentage etc
+	 */
+	@Transient
+	private String fullName;
+	
+	/**
 	 * default constructor is mandatory for Entity class
 	 */
 	public Student() {
@@ -51,6 +60,7 @@ public class Student {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+		this.fullName = firstName + " " + lastName;
 	}
 	
 	/**
@@ -58,9 +68,12 @@ public class Student {
 	 */
 	public Student(CreateStudentRequest createStudentRequest) {
 		super();
-		this.firstName = createStudentRequest.getFirstName();
-		this.lastName = createStudentRequest.getLastName();
+		String firstName = createStudentRequest.getFirstName();
+		String lastName = createStudentRequest.getLastName();
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.email = createStudentRequest.getEmail();
+		this.fullName = firstName + " " + lastName;
 	}
 
 	public long getId() {
@@ -95,5 +108,9 @@ public class Student {
 		this.email = email;
 	}
 	
+	public String getFullName() {
+		String fullName = this.firstName + " " + this.lastName;
+		return fullName;
+	}
 	
 }

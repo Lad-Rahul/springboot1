@@ -1,0 +1,26 @@
+Transient annotation
+
+@Transient annotation is used for variable in class which is not refers to column in table
+It is used when this field should not persist in database but needs to return in response
+It's value is calculated based on data available, ex fullName, total, percentage etc
+
+---------------------------------------------------------------------
+
+@Transient
+private String fullName;
+
+
+Constructor
+public Student(long id, String firstName, String lastName, String email) {
+	...
+	this.fullName = firstName + " " + lastName;
+}
+
+Getter
+public String getFullName() {
+	String fullName = this.firstName + " " + this.lastName;
+	return fullName;
+}
+
+---------------------------------------------------------------------
+

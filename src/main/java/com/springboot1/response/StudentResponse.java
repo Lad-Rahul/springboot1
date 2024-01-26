@@ -17,6 +17,8 @@ public class StudentResponse {
 	private String lastName;
 	
 	private String email;
+	
+	private String fullName;
 
 	public StudentResponse(long id, String firstName, String lastName, String email) {
 		super();
@@ -24,13 +26,18 @@ public class StudentResponse {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+		this.fullName = firstName + lastName;
 	}
 
 	public StudentResponse(Student student) {
+		String firstName = student.getFirstName();
+		String lastName = student.getLastName();
+		
 		this.id = student.getId();
-		this.firstName = student.getFirstName();
-		this.lastName = student.getLastName();
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.email = student.getEmail();
+		this.fullName = firstName + " " + lastName;
 	}
 
 	@Override
@@ -70,5 +77,9 @@ public class StudentResponse {
 		this.email = email;
 	}
 	
+	public String getFullName() {
+		String fullName = this.firstName + " " + this.lastName;
+		return fullName;
+	}
 	
 }
