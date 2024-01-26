@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.springboot1.entity.Student;
 import com.springboot1.repository.StudentRepository;
 import com.springboot1.request.CreateStudentRequest;
+import com.springboot1.request.InQueryRequest;
 import com.springboot1.request.UpdateStudentRequest;
 
 /**
@@ -63,5 +64,36 @@ public class StudentService {
 	public String deleteStudent(Long id) {
 		studentRepository.deleteById(id);
 		return "Student has been deleted successfully";
+	}
+	
+	public List<Student> getStudentsByFirstName(String firstName) {
+		List<Student> studentList = studentRepository.findByFirstName(firstName);
+		return studentList;
+	}
+	
+	public List<Student> getStudentsByFirstNameAndLastName(String firstName, String lastName){
+		List<Student> studentList = studentRepository.findByFirstNameAndLastName(firstName, lastName);
+		return studentList;
+	}
+	
+	public List<Student> getStudentsByFirstNameContains(String firstName){
+		List<Student> studentList = studentRepository.findByFirstNameContains(firstName);
+		return studentList;
+	}
+	
+	public List<Student> getStudentsByFirstNameStartsWith(String firstName){
+		List<Student> studentList = studentRepository.findByFirstNameStartsWith(firstName);
+		return studentList;
+	}
+	
+	public List<Student> getStudentsByFirstNameEndsWith(String firstName){
+		List<Student> studentList = studentRepository.findByFirstNameEndsWith(firstName);
+		return studentList;
+	}
+	
+	public List<Student> getStudentsByFirstNameIn(InQueryRequest inQueryRequest){
+		List<String> firstNames = inQueryRequest.getFirstNames();
+		List<Student> studentList = studentRepository.findByFirstNameIn(firstNames);
+		return studentList;
 	}
 }

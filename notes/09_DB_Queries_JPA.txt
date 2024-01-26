@@ -1,0 +1,53 @@
+JPA Repository Interface and its SQL queries
+
+-----------------------------------------------------------
+
+GET http://localhost:8080/api/student/get-by-firstname/John
+
+List<Student> findByFirstName(String firstName);
+
+select s1_0.id,s1_0.email,s1_0.first_name,s1_0.last_name from student s1_0 where s1_0.first_name=?
+
+notes: findBy* - here * should be entity class Variable name mapped to column
+
+-----------------------------------------------------------
+
+GET http://localhost:8080/api/student/get-by-firstname-and-lastname/John/Wick
+
+List<Student> findByFirstNameAndLastName(String firstName, String lastName);
+
+select s1_0.id,s1_0.email,s1_0.first_name,s1_0.last_name from student s1_0 where s1_0.first_name=? and s1_0.last_name=?
+
+notes: paramers should be in same order given in function name
+
+-----------------------------------------------------------
+
+GET http://localhost:8080/api/student/get-by-firstname-contains/on
+
+List<Student> findByFirstNameContains(String firstName);
+
+select s1_0.id,s1_0.email,s1_0.first_name,s1_0.last_name from student s1_0 where s1_0.first_name like ? escape '\\'
+
+select s1_0.id,s1_0.email,s1_0.first_name,s1_0.last_name from student s1_0 where s1_0.first_name like '%on%'
+
+-----------------------------------------------------------
+
+GET http://localhost:8080/api/student/get-by-firstname-startswith/jo
+
+List<Student> findByFirstNameStartsWith(String firstName);
+
+select s1_0.id,s1_0.email,s1_0.first_name,s1_0.last_name from student s1_0 where s1_0.first_name like ? escape '\\'
+
+select s1_0.id,s1_0.email,s1_0.first_name,s1_0.last_name from student s1_0 where s1_0.first_name like '%jo'
+
+-----------------------------------------------------------
+	
+GET http://localhost:8080/api/student/get-by-firstname-endswith/on
+
+List<Student> findByFirstNameEndsWith(String firstName);
+
+select s1_0.id,s1_0.email,s1_0.first_name,s1_0.last_name from student s1_0 where s1_0.first_name like ? escape '\\'
+
+select s1_0.id,s1_0.email,s1_0.first_name,s1_0.last_name from student s1_0 where s1_0.first_name like 'on%'
+	
+-----------------------------------------------------------

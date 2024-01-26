@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot1.entity.Student;
 import com.springboot1.request.CreateStudentRequest;
+import com.springboot1.request.InQueryRequest;
 import com.springboot1.request.UpdateStudentRequest;
 import com.springboot1.response.StudentResponse;
 import com.springboot1.service.StudentService;
@@ -45,6 +46,16 @@ public class StudentController {
 	@Autowired
 	StudentService studentService;
 	
+	private List<StudentResponse> makeStudentResponseList(List<Student> studentList) {
+		List<StudentResponse> studentResponseList = new ArrayList<StudentResponse>();
+		
+		studentList.stream().forEach(student -> {
+			studentResponseList.add(new StudentResponse(student));
+		});
+		
+		return studentResponseList;
+	}
+	
 	@GetMapping("/get")
 //	@RequestMapping(value="/get", method=RequestMethod.GET)
 	public StudentResponse getStudent() {
@@ -54,14 +65,10 @@ public class StudentController {
 	
 	@GetMapping("/get-all")
 	public List<StudentResponse> getAllStudents() {
-		
+
 		List<Student> studentList = studentService.getAllStudents();
-		
-		List<StudentResponse> studentResponseList = new ArrayList<StudentResponse>();
-		
-		studentList.stream().forEach(student -> {
-			studentResponseList.add(new StudentResponse(student));
-		});
+
+		List<StudentResponse> studentResponseList = makeStudentResponseList(studentList);
 		
 		return studentResponseList;
 	}
@@ -116,4 +123,61 @@ public class StudentController {
 		String message = studentService.deleteStudent(id);
 		return message;
 	}
+	
+	
+	@GetMapping("/get-by-first-name/{firstName}")
+	public List<StudentResponse> getStudentsByFirstName(@PathVariable String firstName) {
+		List<Student> studentList = studentService.getStudentsByFirstName(firstName);
+		
+		List<StudentResponse> studentResponseList = makeStudentResponseList(studentList);
+		
+		return studentResponseList;	
+	}
+	
+	@GetMapping("/get-by-firstname-and-lastname/{firstName}/{lastName}")
+	public List<StudentResponse> getStudentsByFirstNameAndLastName(@PathVariable String firstName, @PathVariable String lastName) {
+		List<Student> studentList = studentService.getStudentsByFirstNameAndLastName(firstName, lastName);
+		
+		List<StudentResponse> studentResponseList = makeStudentResponseList(studentList);
+		
+		return studentResponseList;
+	}
+	
+	@GetMapping("/get-by-firstname-contains/{firstName}")
+	public List<StudentResponse> getStudentsByFirstNameContains(@PathVariable String firstName){
+		List<Student> studentList = studentService.getStudentsByFirstNameContains(firstName);
+		
+		List<StudentResponse> studentResponseList = makeStudentResponseList(studentList);
+		
+		return studentResponseList;
+	}
+	
+	@GetMapping("/get-by-firstname-startswith/{firstName}")
+	public List<StudentResponse> getStudentsByFirstNameStartsWith(@PathVariable String firstName){
+		List<Student> studentList = studentService.getStudentsByFirstNameStartsWith(firstName);
+		
+		List<StudentResponse> studentResponseList = makeStudentResponseList(studentList);
+		
+		return studentResponseList;
+	}
+	
+	@GetMapping("/get-by-firstname-endswith/{firstName}")
+	public List<StudentResponse> getStudentsByFirstNameEndsWith(@PathVariable String firstName){
+		List<Student> studentList = studentService.getStudentsByFirstNameEndsWith(firstName);
+		
+		List<StudentResponse> studentResponseList = makeStudentResponseList(studentList);
+		
+		return studentResponseList;
+	}
+	
+	@PostMapping("/get-by-firstname-in")
+	public List<StudentResponse> getStudentsByFirstNameIn(@RequestBody InQueryRequest inQueryRequest){
+		List<Student> studentList = studentService.getStudentsByFirstNameIn(inQueryRequest);
+		
+		List<StudentResponse> studentResponseList = makeStudentResponseList(studentList);
+		
+		return studentResponseList;
+	}
+	
+	
 }
