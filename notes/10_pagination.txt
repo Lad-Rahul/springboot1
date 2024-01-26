@@ -37,4 +37,7 @@ List<Student> studentList = studentRepository.findAll(sort);
 Notes: direction: direction object
 	   property: fieldName of class that refers to column in table
 	   
+	   For API to work without requestParam,
+	   Need top make requestParam not required and give a defauleValue
+	   
 ---------------------------------------------------------------------

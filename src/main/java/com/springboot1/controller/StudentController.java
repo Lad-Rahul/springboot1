@@ -193,6 +193,10 @@ public class StudentController {
 		return studentResponseList;
 	}
 	
+	/**
+	 * API to work without requestParam
+	 * Need top make requestParam not required and give a defauleValue
+	 */
 	@GetMapping("/get-all-with-sort")
 	public List<StudentResponse> getAllStudentsWithSort(@RequestParam(required = false, defaultValue = "ASC") String sortOrder){
 		List<Student> studentList = studentService.getAllStudentsWithSort(sortOrder);
