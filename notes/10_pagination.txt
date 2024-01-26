@@ -1,0 +1,40 @@
+Pagination
+
+for pageSize = 10
+skip = (pageNo - 1) * PageSize
+Limit = pageSize
+
+PageNo     Skip     Limit
+1			0		10
+2			10		10
+3			20		10
+
+query for page 2 : SELECT * FROM students LIMIT 10 OFFSET 10
+
+---------------------------------------------------------------------
+
+GET http://localhost:8080/api/student/get-all-with-pagination?pageNo=1&pageSize=10
+
+select s1_0.id,s1_0.email,s1_0.first_name,s1_0.last_name from student s1_0 limit ?,?
+
+select s1_0.id,s1_0.email,s1_0.first_name,s1_0.last_name from student s1_0 limit 10 offset 10
+
+Pageable pageable = PageRequest.of(pageNo, pageSize);
+Page<Student> pageData = studentRepository.findAll(pageable);
+List<Student> studentList = pageData.getContent();
+
+Notes: pageNo is based on zero based index
+
+---------------------------------------------------------------------
+
+GET http://localhost:8080/api/student/get-all-with-sort?sortOrder=DESC
+
+select s1_0.id,s1_0.email,s1_0.first_name,s1_0.last_name from student s1_0 order by s1_0.first_name desc
+
+Sort sort = Sort.by(direction , property);
+List<Student> studentList = studentRepository.findAll(sort);
+
+Notes: direction: direction object
+	   property: fieldName of class that refers to column in table
+	   
+---------------------------------------------------------------------

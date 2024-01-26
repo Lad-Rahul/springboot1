@@ -170,6 +170,11 @@ public class StudentController {
 		return studentResponseList;
 	}
 	
+	/**
+	 * 2 ways to get data
+	 * 1. get the data through payload (preferred)
+	 * 2. get data through params where data is seperated through comma
+	 */
 	@PostMapping("/get-by-firstname-in")
 	public List<StudentResponse> getStudentsByFirstNameIn(@RequestBody InQueryRequest inQueryRequest){
 		List<Student> studentList = studentService.getStudentsByFirstNameIn(inQueryRequest);
@@ -179,5 +184,23 @@ public class StudentController {
 		return studentResponseList;
 	}
 	
+	@GetMapping("/get-all-with-pagination")
+	public List<StudentResponse> getAllStudentsWithPagination(@RequestParam int pageNo, @RequestParam int pageSize){
+		List<Student> studentList = studentService.getAllStudentsWithPagination(pageNo, pageSize);
+		
+		List<StudentResponse> studentResponseList = makeStudentResponseList(studentList);
+		
+		return studentResponseList;
+	}
+	
+	@GetMapping("/get-all-with-sort")
+	public List<StudentResponse> getAllStudentsWithSort(@RequestParam(required = false, defaultValue = "ASC") String sortOrder){
+		List<Student> studentList = studentService.getAllStudentsWithSort(sortOrder);
+		
+		List<StudentResponse> studentResponseList = makeStudentResponseList(studentList);
+		
+		return studentResponseList;
+	}
+
 	
 }
