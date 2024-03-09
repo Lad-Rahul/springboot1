@@ -1,0 +1,34 @@
+Create New Table Address(id, street, city)
+Add New column in Student Table : address_id
+
+Student and Address table is having one to one relationship
+
+Student table is at owning side as it has foreign key (address_id)
+Address table is at non-owning side
+
+Create Address Entity and Repository
+
+---------------------------------------------------------------------------
+Add adress through /create API
+
+In CreateStudentRequest add 2 new fields (street, city)
+handle this in StudentResponse also.
+
+In StudentService.js
+-> AutoWired AddressRepository to take care of storing data in Address Table
+-> on CreateStudent method - follow below steps in exact order.
+   - take address data from request
+   - save it on address table
+   - save address_id in student Entity so student data will have address id
+   - save student data in student table
+   
+POST http://localhost:8080/api/student/create
+{
+    "first_name": "John",
+  	"lastName" : "Cena",
+ 	"email": "johncena@gmail.com",
+ 	"street":"jewels",
+ 	"city": "Dubai"
+}
+
+---------------------------------------------------------------------------

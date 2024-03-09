@@ -11,7 +11,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 
+import com.springboot1.entity.Address;
 import com.springboot1.entity.Student;
+import com.springboot1.repository.AddressRepository;
 import com.springboot1.repository.StudentRepository;
 import com.springboot1.request.CreateStudentRequest;
 import com.springboot1.request.InQueryRequest;
@@ -33,6 +35,9 @@ public class StudentService {
 	@Autowired
 	StudentRepository studentRepository;
 	
+	@Autowired
+	AddressRepository addressRepository;
+	
 	public List<Student> getAllStudents() {
 		/*
 		 * findAll method is provided by JpaRepository interface
@@ -46,11 +51,23 @@ public class StudentService {
 			
 		Student student = new Student(createStudentRequest);
 		
-		/**
-		 * save will create new record in database
-		 */
-		student = studentRepository.save(student);
+		Address address = new Address();
+		address.setStreet(createStudentRequest.getStreet());
+		address.setCity(createStudentRequest.getCity());
 		
+		// save will create new record in database for address with id
+		address = addressRepository.save(address);
+		
+		/**
+		 * save address in Student Object after it is stored in DB
+		 * so it has address_id(foreign key) to store in student object
+		 */
+		student.setAddress(address);
+		
+
+		//save student object in database after it has address_id
+		student = studentRepository.save(student);
+
 		return student;
 	}
 	

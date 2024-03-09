@@ -16,6 +16,11 @@ public class CreateStudentRequest {
 	 */
 	@NotBlank(message ="email id is mandatory")
 	private String email;
+	
+	
+	private String street;
+	
+	private String city;
 
 	public String getFirstName() {
 		return firstName;
@@ -39,6 +44,22 @@ public class CreateStudentRequest {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
 	}
 	
 }

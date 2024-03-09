@@ -19,14 +19,20 @@ public class StudentResponse {
 	private String email;
 	
 	private String fullName;
+	
+	private String street;
+	
+	private String city;
 
-	public StudentResponse(long id, String firstName, String lastName, String email) {
+	public StudentResponse(long id, String firstName, String lastName, String email, String street, String city) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.fullName = firstName + lastName;
+		this.street = street;
+		this.city = city;
 	}
 
 	public StudentResponse(Student student) {
@@ -38,11 +44,13 @@ public class StudentResponse {
 		this.lastName = lastName;
 		this.email = student.getEmail();
 		this.fullName = firstName + " " + lastName;
+		this.street = student.getAddress().getStreet();
+		this.city = student.getAddress().getCity();
 	}
 
 	@Override
 	public String toString() {
-		return "StudentResponse [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
+		return "StudentResponse [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", street=" + street + ", city=" + city + "]";
 	}
 
 	public Long getId() {
@@ -80,6 +88,22 @@ public class StudentResponse {
 	public String getFullName() {
 		String fullName = this.firstName + " " + this.lastName;
 		return fullName;
+	}
+
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
 	}
 	
 }

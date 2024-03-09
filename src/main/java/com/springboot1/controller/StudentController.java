@@ -59,7 +59,7 @@ public class StudentController {
 	@GetMapping("/get")
 //	@RequestMapping(value="/get", method=RequestMethod.GET)
 	public StudentResponse getStudent() {
-		StudentResponse student = new StudentResponse(1, "Firstname", "LastName", "abc@gmail.com");
+		StudentResponse student = new StudentResponse(1, "Firstname", "LastName", "abc@gmail.com", "bakerStreet", "London");
 		return student;
 	}
 	

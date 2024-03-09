@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
@@ -46,6 +48,11 @@ public class Student {
 	 */
 	@Transient
 	private String fullName;
+	
+	
+	@OneToOne
+	@JoinColumn(name = "address_id")
+	private Address address;
 	
 	/**
 	 * default constructor is mandatory for Entity class
@@ -111,6 +118,14 @@ public class Student {
 	public String getFullName() {
 		String fullName = this.firstName + " " + this.lastName;
 		return fullName;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 	
 }
