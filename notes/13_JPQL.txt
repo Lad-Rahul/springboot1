@@ -1,0 +1,56 @@
+JPQL: Java Persistence Query Language
+
+In SQL query we refer to table and columns, 
+While in JPQL query, we refer to entity, class and fields inside the entity class.
+
+Usecase: require to write a query that you cannot achieve by method proxy that is provided by JPA.
+And that query will get converted into native SQL query by JPA.
+
+
+---------------------------------------------------------------------------------------------------------------------------
+GET Query
+
+/**
+ * any name is used as method name as JPQL query is not using method proxy
+ * use column name same as class variable, table name same as class name
+ * variable param should be start with colon
+ */
+ 
+Example
+
+@Query("From Student where firstName = :fname and lastName = :lastName")
+List<Student> getByFirstNameAndLastName(@Param("fname") String firstName, String lastName);
+
+-----------------------------------------------------------------------------------------------------------------------------
+UPDATE Query
+
+/**
+ * when JPQL query is used to upate database, @Modifying and @Transactional (from springboot)
+ * annotation is must to be added
+ * in JPQL, query param can be access though param number (ex :?2)
+ * when @Modifying anotation is used, method's return type should be void or Integer,
+ * method will return number of rows which were updated
+ */
+ 
+Example
+ 
+@Modifying
+@Transactional
+@Query("Update Student set firstName = :?2 where id = :id")
+Integer updateFirstName(Long id, String firstName);
+
+-----------------------------------------------------------------------------------------------------------------------------
+Delete Query
+
+/**
+ * using method proxy, rows can be deleted only by Id,
+ * to delete rows using other columns, have to use JPQL query
+ */
+ 
+Example 
+
+@Modifying
+@Transactional
+@Query("Delete from Student where firstName = :firstName")
+Integer deleteByFirstName(String firstName);
+

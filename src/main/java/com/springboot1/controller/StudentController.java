@@ -205,6 +205,28 @@ public class StudentController {
 		
 		return studentResponseList;
 	}
-
+	
+	@GetMapping("/get-by-firstname-and-lastname/jpql/{firstName}/{lastName}")
+	public List<StudentResponse> getAllStudentsByFirstNameAndLastNameWithJpql(@PathVariable String firstName, @PathVariable String lastName){
+		List<Student> studentList = studentService.getStudentsByFirstNameAndLastNameWithJpql(firstName, lastName);
+		
+		List<StudentResponse> studentResponseList = makeStudentResponseList(studentList);
+		
+		return studentResponseList;
+	}
+	
+//	@PutMapping("/update-first-name/jpql/{id}/{firstName}")
+//	public String updateStudentFirstNameWithJpql(@PathVariable Long id,@PathVariable String firstName) {
+//		String message = studentService.updateFirstNameWithJpql(id, firstName);
+//		
+//		return message;
+//	}
+	
+	@DeleteMapping("/delete-by-firstname/jpql/{firstName}")
+	public String deleteStudent(@PathVariable String firstName) {
+		String message = studentService.deleteByFirstNameWithJpql(firstName);
+		
+		return message;
+	}
 	
 }

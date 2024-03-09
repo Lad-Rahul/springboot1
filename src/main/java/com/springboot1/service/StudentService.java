@@ -120,6 +120,7 @@ public class StudentService {
 		List<Student> studentList = pageData.getContent();
 		return studentList;
 	}
+
 	/**
 	 * Sort.by(direction, property)
 	 * direction: direction object
@@ -132,6 +133,21 @@ public class StudentService {
 		
 		List<Student> studentList = studentRepository.findAll(sort);
 		return studentList;
+	}
+	
+	public List<Student> getStudentsByFirstNameAndLastNameWithJpql(String firstName, String lastName){
+		List<Student> studentList = studentRepository.getByFirstNameAndLastName(firstName, lastName);
+		return studentList;
+	}
+	
+//	public String updateFirstNameWithJpql(Long id, String firstName) {
+//		Integer updatedRecordCount studentRepository.updateFirstName(id, firstName);
+//		return updatedRecordCount + " students records are updated";
+//	}
+	
+	public String deleteByFirstNameWithJpql(String firstName) {
+		Integer deletedRecordCount = studentRepository.deleteByFirstName(firstName);
+		return deletedRecordCount + " student records are deleted";
 	}
 	
 }
