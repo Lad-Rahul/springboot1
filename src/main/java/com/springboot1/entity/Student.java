@@ -4,6 +4,7 @@ import com.springboot1.request.CreateStudentRequest;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -50,7 +51,19 @@ public class Student {
 	private String fullName;
 	
 	
-	@OneToOne
+	/**
+	 * byDefault FetchType is EAGER,
+	 * on fetching of student's data JPA will fire query to get corresponding 
+	 * address detail, even if address details is not needed 
+	 * this is overload on an API, it has impact on performance.
+	 * 
+	 * When FetchType is LAZY,
+	 * it will not fire query to fetch associated address data, 
+	 * it will just have proxy object of address,
+	 * when it is explicitly asked for address data then only it will fire query
+	 * to get address data, (when get method is called in studentResponse's constructor)  
+	 */
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "address_id")
 	private Address address;
 	

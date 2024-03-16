@@ -101,3 +101,36 @@ as there is one to one relation between student and address
 
 
 -------------------------------------------------------------------------------
+
+Lazy Loading in JPA
+
+Hibernate: select s1_0.id,s1_0.address_id,s1_0.email,s1_0.first_name,s1_0.last_name from student s1_0 left join address a1_0 on a1_0.id=s1_0.address_id where a1_0.city=?
+Hibernate: select a1_0.id,a1_0.city,a1_0.street from address a1_0 where a1_0.id=?
+Hibernate: select a1_0.id,a1_0.city,a1_0.street from address a1_0 where a1_0.id=?
+
+in above example of join method, it is making 3 SQL Query request, 
+1st one is for join query,
+next 2 are to get address Info for each student in response
+as there are 2 students in response.
+
+There are 2 type of Fetching method
+1. EAGER
+2. LAZY
+
+byDefault FetchType is EAGER,
+on fetching of student's data JPA will fire query to get corresponding 
+address detail, even if address details is not needed 
+this is overload on an API, it has impact on performance.
+ 
+When FetchType is LAZY,
+it will not fire query to fetch associated address data, 
+it will just have proxy object of address,
+when it is explicitly asked for address data then only it will fire query
+to get address data, (when get method is called in studentResponse's constructor)  
+
+Have to provide this on Relationship annontation
+ex, in Student Entity class
+
+@OneToOne(fetch = FetchType.LAZY)
+@JoinColumn(name = "address_id")
+private Address address;
