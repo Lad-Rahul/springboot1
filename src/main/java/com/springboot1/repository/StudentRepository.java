@@ -68,5 +68,18 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 	@Transactional
 	@Query("Delete from Student where firstName = :firstName")
 	Integer deleteByFirstName(String firstName);
-
+	
+	/**
+	 * method proxy query to get list of student with particular city of Address
+	 * SQL Join Query for same : SELECT * FROM `student` s INNER JOIN `address` a on s.address_id = a.id where a.city = "Dubai";
+	 */
+	List<Student> findByAddressCity(String city);
+	
+	/**
+	 * JPQL to get list of student with particular city of Address
+	 * SQL Join Query for same : SELECT * FROM `student` s INNER JOIN `address` a on s.address_id = a.id where a.city = "Dubai";
+	 */
+	@Query("From Student where address.city = :city")
+	List<Student> getByAddressCity(String city);
+	
 }

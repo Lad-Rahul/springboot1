@@ -229,4 +229,25 @@ public class StudentController {
 		return message;
 	}
 	
+	@GetMapping("/get-by-city/{city}")
+	public List<StudentResponse> getAllStudentsByCity(@PathVariable String city){
+		List<Student> studentList = studentService.getAllStudentsByCity(city);
+		
+		List<StudentResponse> studentResponseList = makeStudentResponseList(studentList);
+		
+		return studentResponseList;
+	}
+	
+	@GetMapping("/get-by-city/jpql/{city}")
+	public List<StudentResponse> getAllStudentsByCityWithJpql(@PathVariable String city){
+		List<Student> studentList = studentService.getAllStudentsByCityWithJpql(city);
+		
+		List<StudentResponse> studentResponseList = makeStudentResponseList(studentList);
+		
+		return studentResponseList;
+	}
+	
+	
+	
+	
 }

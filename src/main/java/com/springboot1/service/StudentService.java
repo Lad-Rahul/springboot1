@@ -167,4 +167,14 @@ public class StudentService {
 		return deletedRecordCount + " student records are deleted";
 	}
 	
+	public List<Student> getAllStudentsByCity(String city){
+		List<Student> studentList = studentRepository.findByAddressCity(city);
+		return studentList;
+	}
+	
+	public List<Student> getAllStudentsByCityWithJpql(String city){
+		List<Student> studentList = studentRepository.getByAddressCity(city);
+		return studentList;
+	}
+	
 }

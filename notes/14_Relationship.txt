@@ -32,3 +32,72 @@ POST http://localhost:8080/api/student/create
 }
 
 ---------------------------------------------------------------------------
+
+Join Query
+
+SELECT * FROM `student` s INNER JOIN `address` a on s.address_id = a.id where a.city = "Dubai";
+
+method proxy in student Repository
+List<Student> findByAddressCity(String city);
+
+GET http://localhost:8080/api/student/get-by-city/dubai
+
+Response
+[
+	{
+		"id": 23,
+		"lastName": "Cena",
+		"email": "johncena@gmail.com",
+		"fullName": "John Cena",
+		"street": "jewels",
+		"city": "Dubai",
+		"first_name": "John"
+	},
+	{
+		"id": 25,
+		"lastName": "Salt",
+		"email": "Rock3@gmail.com",
+		"fullName": "Rock Salt",
+		"street": "SunflowerStreet",
+		"city": "Dubai",
+		"first_name": "Rock"
+	}
+]
+
+
+JPQL in student Repository
+List<Student> getByAddressCity(String city);
+
+GET http://localhost:8080/api/student/get-by-city/jpql/delhi
+
+Response
+[
+	{
+		"id": 24,
+		"lastName": "Charley",
+		"email": "james23@gmail.com",
+		"fullName": "James Charley",
+		"street": "Rohini",
+		"city": "Delhi",
+		"first_name": "James"
+	},
+	{
+		"id": 26,
+		"lastName": "Patel",
+		"email": "Ramesh453@gmail.com",
+		"fullName": "Ramesh Patel",
+		"street": "Rajivchowlk",
+		"city": "Delhi",
+		"first_name": "Ramesh"
+	}
+]
+
+
+For Info:
+If we use, 
+List<Student> findByAddress(Address address);
+then it will give only one result 
+as there is one to one relation between student and address
+
+
+-------------------------------------------------------------------------------
