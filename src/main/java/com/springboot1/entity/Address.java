@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,6 +22,12 @@ public class Address {
 	
 	@Column(name = "city")
 	private String city;
+	
+	/**
+	 * "address" is a variable name used in Student Entity for OneToOne Mapping
+	 */
+	@OneToOne(mappedBy = "address")
+	private Student student;
 	
 	
 	public Address() {
@@ -58,5 +65,14 @@ public class Address {
 	public void setCity(String city) {
 		this.city = city;
 	}
+
+	public Student getStudent() {
+		return student;
+	}
+
+	public void setStudent(Student student) {
+		this.student = student;
+	}
+	
 	
 }

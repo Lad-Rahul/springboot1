@@ -134,3 +134,25 @@ ex, in Student Entity class
 @OneToOne(fetch = FetchType.LAZY)
 @JoinColumn(name = "address_id")
 private Address address;
+
+----------------------------------------------------------------------------------------
+
+getById query on Address table before and after bi-directional relationship
+
+Before:
+select a1_0.id,a1_0.city,a1_0.street from address a1_0 where a1_0.id=?
+
+After:
+select a1_0.id,a1_0.city,a1_0.street,s1_0.id,s1_0.email,s1_0.first_name,s1_0.last_name from address a1_0 left join student s1_0 on a1_0.id=s1_0.address_id where a1_0.id=?
+
+To set bi-directional relation, 
+have to add mappedBy with Relationship annontation at non-owning side of Entity.
+
+Ex, here Address is non-owning side of relationship
+So in Address Entity class, need to add
+
+@OneToOne(mappedBy = "address")
+private Student student;
+
+// "address" is a variable name used in Student Entity for OneToOne Mapping
+
