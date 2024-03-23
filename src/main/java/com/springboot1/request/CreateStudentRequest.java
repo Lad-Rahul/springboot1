@@ -1,5 +1,7 @@
 package com.springboot1.request;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.validation.constraints.NotBlank;
@@ -21,6 +23,8 @@ public class CreateStudentRequest {
 	private String street;
 	
 	private String city;
+	
+	private List<CreateSubjectRequest> subjects;
 
 	public String getFirstName() {
 		return firstName;
@@ -60,6 +64,14 @@ public class CreateStudentRequest {
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+
+	public List<CreateSubjectRequest> getSubjects() {
+		return subjects;
+	}
+
+	public void setSubjects(List<CreateSubjectRequest> subjects) {
+		this.subjects = subjects;
 	}
 	
 }

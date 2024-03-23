@@ -21,6 +21,7 @@ import com.springboot1.request.CreateStudentRequest;
 import com.springboot1.request.InQueryRequest;
 import com.springboot1.request.UpdateStudentRequest;
 import com.springboot1.response.StudentResponse;
+import com.springboot1.response.SubjectResponse;
 import com.springboot1.service.StudentService;
 
 import jakarta.validation.Valid;
@@ -59,7 +60,12 @@ public class StudentController {
 	@GetMapping("/get")
 //	@RequestMapping(value="/get", method=RequestMethod.GET)
 	public StudentResponse getStudent() {
-		StudentResponse student = new StudentResponse(1, "Firstname", "LastName", "abc@gmail.com", "bakerStreet", "London");
+		
+		List<SubjectResponse> subjectList = new ArrayList<SubjectResponse>();
+		subjectList.add(new SubjectResponse((long) 1, "Java Test", 85.00));
+		subjectList.add(new SubjectResponse((long) 2, "SQL Test", 82.00));
+		
+		StudentResponse student = new StudentResponse(1, "Firstname", "LastName", "abc@gmail.com", "bakerStreet", "London", subjectList);
 		return student;
 	}
 	

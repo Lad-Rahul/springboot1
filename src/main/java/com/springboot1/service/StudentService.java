@@ -2,6 +2,7 @@ package com.springboot1.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,9 +14,12 @@ import org.springframework.data.domain.Sort.Direction;
 
 import com.springboot1.entity.Address;
 import com.springboot1.entity.Student;
+import com.springboot1.entity.Subject;
 import com.springboot1.repository.AddressRepository;
 import com.springboot1.repository.StudentRepository;
+import com.springboot1.repository.SubjectRepository;
 import com.springboot1.request.CreateStudentRequest;
+import com.springboot1.request.CreateSubjectRequest;
 import com.springboot1.request.InQueryRequest;
 import com.springboot1.request.UpdateStudentRequest;
 
@@ -37,6 +41,9 @@ public class StudentService {
 	
 	@Autowired
 	AddressRepository addressRepository;
+	
+	@Autowired
+	SubjectRepository subjectRepository;
 	
 	public List<Student> getAllStudents() {
 		/*
@@ -67,6 +74,35 @@ public class StudentService {
 
 		//save student object in database after it has address_id
 		student = studentRepository.save(student);
+		
+		
+		List<Subject> subjectList = new ArrayList<Subject>();
+		
+		List<CreateSubjectRequest> subjects = createStudentRequest.getSubjects();
+		
+		if(subjects != null) {
+			
+			/**
+			 *  From subjectRequest List, collect subject data, map subject with student,
+			 *  store all subject in subject database with student_id
+			 *  After that add subjectList in student Entity class
+			 */
+			for(CreateSubjectRequest createSubjectRequest : subjects) {
+				
+				Subject subject = new Subject();
+				subject.setSubjectName(createSubjectRequest.getSubjectName());
+				subject.setMarksObtained(createSubjectRequest.getMarksObtained());
+				subject.setStudent(student);
+				
+				subjectList.add(subject);
+			}
+		}
+		
+		// store subject data in database
+		subjectRepository.saveAll(subjectList);
+		
+		// store subjects in student Entity class
+		student.setSubjects(subjectList);
 
 		return student;
 	}

@@ -1,5 +1,7 @@
 package com.springboot1.entity;
 
+import java.util.List;
+
 import com.springboot1.request.CreateStudentRequest;
 
 import jakarta.persistence.Column;
@@ -9,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
@@ -66,6 +69,9 @@ public class Student {
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "address_id")
 	private Address address;
+	
+	@OneToMany(mappedBy = "student")
+	private List<Subject> subjects;
 	
 	/**
 	 * default constructor is mandatory for Entity class
@@ -139,6 +145,14 @@ public class Student {
 
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+
+	public List<Subject> getSubjects() {
+		return subjects;
+	}
+
+	public void setSubjects(List<Subject> subjects) {
+		this.subjects = subjects;
 	}
 	
 }

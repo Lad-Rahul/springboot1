@@ -156,3 +156,63 @@ private Student student;
 
 // "address" is a variable name used in Student Entity for OneToOne Mapping
 
+--------------------------------------------------------------------------------------------------
+
+ManytoOne Relationship
+
+One Student can learn multiple subject
+There is one to many relationship between student and subject
+There is many to one relationship between subject and student 
+
+create Subject Table (id, subject_name, marks_obtained, student_id)
+here student_id is foreign key
+
+create Subject Entity Class with student variable (join with student_id)
+
+In Student Entity class,
+Add subjects variable (mapped by student varible of subject) to get subjects associated with student
+
+create SubjectRepository for database handling
+
+create CreateSubjectRequest Class to handle Request payload
+in CreateStudentRequest Class, add subjects as List of CreateSubjectRequest,
+	to handle subject payload in create student request
+	
+	
+create SubjectResposne class
+In StudentResposne Class, add subjects as List of CreateSubjectResponse.
+
+In StudentService, handle CreateStudent Request with subject in payload.
+
+From subjectRequest List, collect subject data, map subject with student,
+store all subject in subject database with student_id
+After that add subjectList in student Entity class
+
+
+
+
+Hibernate: insert into address (city,street) values (?,?)
+Hibernate: insert into student (address_id,email,first_name,last_name) values (?,?,?,?)
+Hibernate: insert into subject (marks_obtained,student_id,subject_name) values (?,?,?)
+Hibernate: insert into subject (marks_obtained,student_id,subject_name) values (?,?,?)
+
+POST http://localhost:8080/api/student/create
+
+Request
+{
+    "first_name": "Ajay",
+  	"lastName" : "Shrivastav",
+ 	"email": "Ajaysh@gmail.com",
+ 	"street":"Karolbagh",
+ 	"city": "Delhi",
+  	"subjects" : [
+    	{
+      		"subjectName" : "Java",
+      		"marksObtained" : 75.00
+    	},
+    	{
+      		"subjectName" : "SQL",
+      		"marksObtained" : 81.00
+    	}
+  	]
+}

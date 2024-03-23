@@ -1,8 +1,12 @@
 package com.springboot1.response;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.springboot1.entity.Student;
+import com.springboot1.entity.Subject;
 
 public class StudentResponse {
 	
@@ -23,8 +27,10 @@ public class StudentResponse {
 	private String street;
 	
 	private String city;
+	
+	private List<SubjectResponse> subjects;
 
-	public StudentResponse(long id, String firstName, String lastName, String email, String street, String city) {
+	public StudentResponse(long id, String firstName, String lastName, String email, String street, String city, List<SubjectResponse> subjects) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -33,6 +39,7 @@ public class StudentResponse {
 		this.fullName = firstName + lastName;
 		this.street = street;
 		this.city = city;
+		this.subjects = subjects;
 	}
 
 	public StudentResponse(Student student) {
@@ -46,6 +53,19 @@ public class StudentResponse {
 		this.fullName = firstName + " " + lastName;
 		this.street = student.getAddress().getStreet();
 		this.city = student.getAddress().getCity();
+		
+		List<Subject> subjectsFromStudent = student.getSubjects();
+		
+		if(subjectsFromStudent != null) {
+			List<SubjectResponse> subjects = new ArrayList<SubjectResponse>();
+			
+			for(Subject subject : subjectsFromStudent) {
+				subjects.add(new SubjectResponse(subject));
+			}
+			
+			this.subjects = subjects;
+		}
+		
 	}
 
 	@Override
@@ -104,6 +124,14 @@ public class StudentResponse {
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+
+	public List<SubjectResponse> getSubjects() {
+		return subjects;
+	}
+
+	public void setSubjects(List<SubjectResponse> subjects) {
+		this.subjects = subjects;
 	}
 	
 }
